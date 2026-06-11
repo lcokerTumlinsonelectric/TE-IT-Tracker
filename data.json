@@ -1,32 +1,258 @@
 {
-  "lastUpdated": "2026-06-11T17:30:00Z",
+  "lastUpdated": "2026-06-11T19:35:00Z",
   "it": [
-    {"id":"IT001","name":"Cody Henry - Accubid Excel export issue","description":"Cody Henry (Senior PM) unable to export Excel files from Accubid. Workaround: log out and back in within the Accubid list in Excel.","date":"2026-06-10","status":"In Progress","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56lAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"IT002","name":"Shaun Blumhoff - Remote Desktop server error","description":"Remote Desktop Server error. Steps: check all boxes; if unable to remove update, roll back last Windows update on laptop.","date":"2026-06-10","status":"In Progress","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56XAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"IT003","name":"Joe Hill - Bluebeam MAX license/seat not showing","description":"Joe Hill on correct Revu 21.10 build but MAX features not showing. Cannot log out, password reset sends no email. Graitec (Mark Stelling) escalated to Bluebeam registration with TE org ID 30e78190-1f5e-43e3-9d1d-50ea5498ba00.","date":"2026-06-11","status":"In Progress","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57kAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"IT004","name":"Steven Grymes - pVault 2026.0.1.5 update","description":"pVault version 2026.0.1.5 now available. Steven Grymes flagged to support; update will be handled.","date":"2026-06-10","status":"In Progress","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56YAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"IT005","name":"Jeff Crim - Lenovo laptop setup needed","description":"Lenovo received from California. Needs setup. Jeff Crim asking if ready by Jun 24 for new hire Carlos Sosa (Florida) by Jul 1.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56vAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"IT006","name":"Miguel Juarez - laptop keyboard not working","description":"Laptop keyboard fully failed. Exchange completed Jun 10. Follow up to confirm new device is working.","date":"2026-06-09","status":"In Progress","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56wAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"IT007","name":"Juan Patino - password request","description":"Juan Patino emailed asking for his password — data deleted on cell phone. Needs password reset/assistance.","date":"2026-06-11","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57eAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"}
+    {
+      "id": "IT001",
+      "name": "Cody Henry - Accubid Excel export issue",
+      "description": "Cody Henry (Senior PM) unable to export Excel files from Accubid. Workaround: log out and back in within the Accubid list in Excel.",
+      "date": "2026-06-10",
+      "status": "In Progress",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56lAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT002",
+      "name": "Shaun Blumhoff - Remote Desktop server error",
+      "description": "Remote Desktop Server error. Steps: check all boxes; if unable to remove update, roll back last Windows update on laptop.",
+      "date": "2026-06-10",
+      "status": "In Progress",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56XAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT003",
+      "name": "Joe Hill - Bluebeam MAX license/seat not showing",
+      "description": "Joe Hill on correct Revu 21.10 build but MAX features not showing. Cannot log out, password reset sends no email. Graitec (Mark Stelling) escalated to Bluebeam registration with TE org ID 30e78190-1f5e-43e3-9d1d-50ea5498ba00.",
+      "date": "2026-06-11",
+      "status": "In Progress",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57kAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT004",
+      "name": "Steven Grymes - pVault 2026.0.1.5 update",
+      "description": "pVault version 2026.0.1.5 now available. Steven Grymes flagged to support; update will be handled.",
+      "date": "2026-06-10",
+      "status": "In Progress",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56YAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT005",
+      "name": "Jeff Crim - Lenovo laptop setup needed",
+      "description": "Lenovo received from California. Needs setup. Jeff Crim asking if ready by Jun 24 for new hire Carlos Sosa (Florida) by Jul 1.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56vAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT006",
+      "name": "Miguel Juarez - laptop keyboard not working",
+      "description": "Laptop keyboard fully failed. Exchange completed Jun 10. Follow up to confirm new device is working.",
+      "date": "2026-06-09",
+      "status": "In Progress",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56wAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT007",
+      "name": "Juan Patino - password request",
+      "description": "Juan Patino emailed asking for his password \u2014 data deleted on cell phone. Needs password reset/assistance.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57eAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT008",
+      "name": "Josh Armendariz - BIM Cart 39 iPad cannot update/run Autodesk",
+      "description": "iPad on BIM Cart 39 can't run Autodesk until iOS updates; OS update fails with 'Unable to Check' error. Brandi Watson diagnosed 64GB capacity issue \u2014 swapping iPad out Wednesday. Josh sending unit back Friday with tool delivery.",
+      "date": "2026-06-11",
+      "status": "In Progress",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57sAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    }
   ],
   "equipment": [
-    {"id":"EQ001","assignedTo":"Miguel Juarez","eqType":"Laptop","description":"Keyboard fully failed — exchange completed Jun 10.","status":"Ordered","date":"2026-06-09","notes":"Exchange made. Follow up to confirm new device working.","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56wAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"EQ002","assignedTo":"Sara Justice","eqType":"iPad","description":"Tablet upgrade quote via Allterra Central.","status":"Needs Ordering","date":"2026-06-10","notes":"Card payment still failing. Sara confirmed check on next check run.","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S560AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"EQ003","assignedTo":"Jeff Crim","eqType":"Laptop","description":"Lenovo from California received. Possibly Ian's old repaired laptop.","status":"Received","date":"2026-06-10","notes":"Jeff Crim asking if ready by Jun 24 for Carlos Sosa (Florida) Jul 1 start.","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56vAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"EQ004","assignedTo":"Carlos Sosa","eqType":"Laptop","description":"New hire Carlos Sosa (Florida) needs laptop by July 1.","status":"Needs Ordering","date":"2026-06-10","notes":"Dependent on Lenovo repair. If not ready, new laptop must be ordered.","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56tAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"}
+    {
+      "id": "EQ001",
+      "assignedTo": "Miguel Juarez",
+      "eqType": "Laptop",
+      "description": "Keyboard fully failed \u2014 exchange completed Jun 10.",
+      "status": "Ordered",
+      "date": "2026-06-09",
+      "notes": "Exchange made. Follow up to confirm new device working.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56wAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "EQ002",
+      "assignedTo": "Sara Justice",
+      "eqType": "iPad",
+      "description": "Tablet upgrade quote via Allterra Central.",
+      "status": "Needs Ordering",
+      "date": "2026-06-10",
+      "notes": "Card payment still failing. Sara confirmed check on next check run.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S560AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "EQ003",
+      "assignedTo": "Jeff Crim",
+      "eqType": "Laptop",
+      "description": "Lenovo from California received. Possibly Ian's old repaired laptop.",
+      "status": "Received",
+      "date": "2026-06-10",
+      "notes": "Jeff Crim asking if ready by Jun 24 for Carlos Sosa (Florida) Jul 1 start.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56vAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "EQ004",
+      "assignedTo": "Carlos Sosa",
+      "eqType": "Laptop",
+      "description": "New hire Carlos Sosa (Florida) needs laptop by July 1.",
+      "status": "Needs Ordering",
+      "date": "2026-06-10",
+      "notes": "Dependent on Lenovo repair. If not ready, new laptop must be ordered.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56tAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "EQ005",
+      "assignedTo": "BIM Cart 39 (Josh Armendariz)",
+      "eqType": "iPad",
+      "description": "Replacement iPad for BIM Cart 39 \u2014 current unit only 64GB, can't take iOS update needed for Autodesk.",
+      "status": "Ordered",
+      "date": "2026-06-11",
+      "notes": "Brandi Watson swapping Wednesday. Old unit returns Friday with Josh's tool delivery.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57sAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    }
   ],
   "phishing": [
-    {"id":"PH001","name":"Suanna Tumlinson","attackerEmail":"john@baseandboardteams.com","issue":"Phishing: 'Pallet quality a quick ask' — business impersonation. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56WAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH002","name":"Myrna Dye","attackerEmail":"lonelyextrovert23@gmail.com","issue":"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56fAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH003","name":"Grace Roberts","attackerEmail":"lonelyextrovert23@gmail.com","issue":"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56gAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH004","name":"Mayra Wiley","attackerEmail":"lonelyextrovert23@gmail.com","issue":"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56hAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH005","name":"Ellen Scheumann","attackerEmail":"lonelyextrovert23@gmail.com","issue":"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56iAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH006","name":"Joe Hill","attackerEmail":"john.boss@baseboardus.com","issue":"Phishing: 'Re: Pallet supply re Tumlinson Electric question' — business impersonation. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56oAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH007","name":"Glenn Garrett","attackerEmail":"john@baseandboardteams.com","issue":"Phishing: 'Pallets for the dock question' — business impersonation. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56IAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH008","name":"Kenneth Tumlinson","attackerEmail":"greslobewigsu2n@hotmail.com","issue":"Phishing: 'Turn Your App Idea into Reality' — fraud/scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56AAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH009","name":"Brandi Watson","attackerEmail":"jerry.globalestimating@gmail.com","issue":"Phishing: 'Looking for opportunities' — fraud/scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56qAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH010","name":"Brandi Watson","attackerEmail":"lucas.global.off@gmail.com","issue":"Phishing: 'Why Choose Us: ONE PROJECT STEP' — fraud/scam. Barracuda moved to Junk.","date":"2026-06-10","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56xAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH011","name":"Kenneth Tumlinson","attackerEmail":"contact@sage-compass-talent.com","issue":"Phishing: 'Stop overpaying for drug screens, physicals and background checks' — fraud/scam. Barracuda moved to Junk.","date":"2026-06-11","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57ZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"},
-    {"id":"PH012","name":"Kristen Tumlinson","attackerEmail":"noreply@docusign.sonobello.com","issue":"Phishing: 'Reminder: Venus Promotion!' — fake DocuSign, suspicious URL. Barracuda moved to Junk.","date":"2026-06-11","status":"Open","threadUrl":"https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57KAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"}
+    {
+      "id": "PH001",
+      "name": "Suanna Tumlinson",
+      "attackerEmail": "john@baseandboardteams.com",
+      "issue": "Phishing: 'Pallet quality a quick ask' \u2014 business impersonation. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56WAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH002",
+      "name": "Myrna Dye",
+      "attackerEmail": "lonelyextrovert23@gmail.com",
+      "issue": "Phishing: 'CHANGE OF DIRECT DEPOSIT' \u2014 direct deposit scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56fAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH003",
+      "name": "Grace Roberts",
+      "attackerEmail": "lonelyextrovert23@gmail.com",
+      "issue": "Phishing: 'CHANGE OF DIRECT DEPOSIT' \u2014 direct deposit scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56gAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH004",
+      "name": "Mayra Wiley",
+      "attackerEmail": "lonelyextrovert23@gmail.com",
+      "issue": "Phishing: 'CHANGE OF DIRECT DEPOSIT' \u2014 direct deposit scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56hAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH005",
+      "name": "Ellen Scheumann",
+      "attackerEmail": "lonelyextrovert23@gmail.com",
+      "issue": "Phishing: 'CHANGE OF DIRECT DEPOSIT' \u2014 direct deposit scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56iAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH006",
+      "name": "Joe Hill",
+      "attackerEmail": "john.boss@baseboardus.com",
+      "issue": "Phishing: 'Re: Pallet supply re Tumlinson Electric question' \u2014 business impersonation. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56oAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH007",
+      "name": "Glenn Garrett",
+      "attackerEmail": "john@baseandboardteams.com",
+      "issue": "Phishing: 'Pallets for the dock question' \u2014 business impersonation. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56IAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH008",
+      "name": "Kenneth Tumlinson",
+      "attackerEmail": "greslobewigsu2n@hotmail.com",
+      "issue": "Phishing: 'Turn Your App Idea into Reality' \u2014 fraud/scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56AAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH009",
+      "name": "Brandi Watson",
+      "attackerEmail": "jerry.globalestimating@gmail.com",
+      "issue": "Phishing: 'Looking for opportunities' \u2014 fraud/scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56qAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH010",
+      "name": "Brandi Watson",
+      "attackerEmail": "lucas.global.off@gmail.com",
+      "issue": "Phishing: 'Why Choose Us: ONE PROJECT STEP' \u2014 fraud/scam. Barracuda moved to Junk.",
+      "date": "2026-06-10",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56xAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH011",
+      "name": "Kenneth Tumlinson",
+      "attackerEmail": "contact@sage-compass-talent.com",
+      "issue": "Phishing: 'Stop overpaying for drug screens, physicals and background checks' \u2014 fraud/scam. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57ZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH012",
+      "name": "Kristen Tumlinson",
+      "attackerEmail": "noreply@docusign.sonobello.com",
+      "issue": "Phishing: 'Reminder: Venus Promotion!' \u2014 fake DocuSign, suspicious URL. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57KAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH013",
+      "name": "Grace Roberts",
+      "attackerEmail": "rachel@deltadesignswork.com",
+      "issue": "Phishing: 'New inquiry' \u2014 fraud/scam language. Reply-to buzzingconversations.llc@gmail.com. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S573AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH014",
+      "name": "Glenn Garrett",
+      "attackerEmail": "lukas@leansafetygroup.shop",
+      "issue": "Phishing: 'Your safety team and what's coming' \u2014 fraud/scam language. Reply-to lukas.g@leansafetygroup.com. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57zAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH015",
+      "name": "Ray Munoz",
+      "attackerEmail": "keisha.hill@servicewithrtafleet.info",
+      "issue": "Phishing: 'Fleet Management Software' \u2014 fraud/scam language. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57nAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    }
   ]
 }
