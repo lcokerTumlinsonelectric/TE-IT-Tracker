@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TE IT Tracker</title>
+<!--
+  SYSTEM INSTRUCTIONS FOR AI ASSISTANT (Logan's IT Ops Assistant):
+  At the start of EVERY conversation in this project, automatically:
+  1. Scan Logan's Outlook inbox for the last 2 weeks (and any new since last scan)
+  2. Identify IT issues, phishing alerts (extract attacker "From" email from body),
+     and equipment-related emails (laptops, iPads, tablets, screens, monitors, etc.)
+  3. Add new items without duplicates:
+     - IT issues   → te_it        (id, name, description, date, status, threadUrl)
+     - Phishing    → te_phishing  (id, name, attackerEmail, issue, date, status, threadUrl)
+     - Equipment   → te_equipment (id, assignedTo, eqType, description, status, date, notes, threadUrl)
+  4. Report how many new items were added, then ask if anything else is needed.
+-->
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
+
+  .header { background: #1a1a2e; color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .header h1 { font-size: 16px; font-weight: 700; letter-spacing: .3px; }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .sync { font-size: 11px; color: #94a3b8; }
+  .auth-status { font-size: 11px; color: #94a3b8; display: flex; align-items: center; gap: 5px; }
+  .auth-dot { width: 7px; height: 7px; border-radius: 50%; background: #95a5a6; display: inline-block; }
+  .auth-dot.on { background: #27ae60; }
+  .auth-btn { background: #0078d4; color: white; border: none; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .auth-btn.out { background: #c0392b; }
+
+  .summary { display: flex; gap: 10px; padding: 14px 20px 0; flex-wrap: wrap; }
+  .tile { background: white; border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 110px; box-shadow: 0 1px 3px rgba(0,0,0,.08); text-align: center; }
+  .tile .n { font-size: 28px; font-weight: 800; line-height: 1; }
+  .tile .l { font-size: 11px; color: #888; margin-top: 3px; }
+
+  .status-bar { margin: 10px 20px 0; padding: 8px 12px; border-radius: 8px; font-size: 12px; display: none; }
+  .status-bar.info    { display: block; background: #d6eaf8; border: 1px solid #2980b9; color: #1a5276; }
+  .status-bar.success { display: block; background: #d5f5e3; border: 1px solid #27ae60; color: #1e8449; }
+  .status-bar.error   { display: block; background: #fde8e8; border: 1px solid #e74c3c; color: #922b21; }
+
+  .warn { margin: 12px 20px 0; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #856404; line-height: 1.5; }
+  .warn strong { display: block; margin-bottom: 3px; }
+
+  .tabs { display: flex; gap: 8px; padding: 14px 20px 0; flex-wrap: wrap; }
+  .tab { padding: 7px 18px; border-radius: 20px; border: none; cursor: pointer; font-size: 13px; font-weight: 600; transition: background .15s, color .15s; }
+  .tab.active { background: #1a1a2e; color: white; }
+  .tab:not(.active) { background: white; color: #555; border: 1px solid #ddd; }
+  .tab-badge { display: inline-block; border-radius: 10px; padding: 1px 7px; font-size: 11px; margin-left: 4px; color: white; }
+
+  .content { padding: 12px 20px 80px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border-left: 4px solid #ccc; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+  .card.open     { border-left-color: #e74c3c; }
+  .card.inprog   { border-left-color: #f39c12; }
+  .card.closed   { border-left-color: #95a5a6; opacity: .7; }
+  .card.ordered  { border-left-color: #2980b9; }
+  .card.received { border-left-color: #27ae60; }
+  .card.needs    { border-left-color: #e74c3c; }
+  .card.clickable { cursor: pointer; text-decoration: none; display: block; color: inherit; transition: box-shadow .15s, transform .1s; }
+  .card.clickable:hover { box-shadow: 0 4px 14px rgba(0,0,0,.13); transform: translateY(-1px); }
+  .card.clickable:hover .card-name { color: #0077cc; }
+  .card-hdr  { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; gap: 8px; }
+  .card-name { font-weight: 700; color: #1a1a2e; line-height: 1.3; transition: color .15s; }
+  .card-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .card-desc { color: #444; font-size: 12px; margin-bottom: 7px; line-height: 1.55; }
+  .card-meta { color: #aaa; font-size: 11px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .link-hint { font-size: 11px; color: #0077cc; margin-left: auto; opacity: 0; transition: opacity .15s; white-space: nowrap; }
+  .card.clickable:hover .link-hint { opacity: 1; }
+
+  .pill { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
+  .pill-open     { background: #fde8e8; color: #c0392b; }
+  .pill-prog     { background: #fef3cd; color: #b7770d; }
+  .pill-closed   { background: #eaecee; color: #666; }
+  .pill-ordered  { background: #d6eaf8; color: #1a5276; }
+  .pill-received { background: #d5f5e3; color: #1e8449; }
+  .pill-needs    { background: #fde8e8; color: #c0392b; }
+
+  .new-badge { background: #27ae60; color: white; font-size: 10px; padding: 1px 6px; border-radius: 8px; margin-left: 6px; vertical-align: middle; font-weight: 700; }
+  .attacker  { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11px; color: #e74c3c; background: #fde8e8; padding: 2px 6px; border-radius: 4px; }
+  .id-tag    { font-family: monospace; font-size: 11px; color: #bbb; }
+  .eq-chip   { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; background: #f0f2f5; color: #555; border: 1px solid #ddd; }
+  .empty     { text-align: center; padding: 40px 20px; color: #bbb; font-size: 13px; }
+
+  .status-btn { background: none; border: 1px solid #ddd; border-radius: 8px; padding: 3px 8px; font-size: 11px; color: #555; cursor: pointer; white-space: nowrap; }
+  .status-btn:hover { background: #f0f2f5; }
+  .smenu-wrap { position: relative; display: inline-block; }
+  .smenu { display: none; position: absolute; right: 0; top: calc(100% + 4px); background: white; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,.12); z-index: 50; min-width: 160px; overflow: hidden; }
+  .smenu.open { display: block; }
+  .smenu-item { padding: 9px 14px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .smenu-item:hover { background: #f5f6f7; }
+  .sdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .fab { position: fixed; bottom: 24px; right: 24px; background: #1a1a2e; color: white; border: none; border-radius: 50px; padding: 12px 20px; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.25); display: none; z-index: 100; }
+  .fab:hover { background: #2d2d4e; }
+
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 200; align-items: center; justify-content: center; }
+  .overlay.open { display: flex; }
+  .modal { background: white; border-radius: 14px; padding: 24px; width: 100%; max-width: 420px; margin: 16px; box-shadow: 0 8px 32px rgba(0,0,0,.2); max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+  .form-row { margin-bottom: 12px; }
+  .form-row label { display: block; font-size: 11px; font-weight: 600; color: #555; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .4px; }
+  .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 8px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; font-family: inherit; outline: none; transition: border-color .15s; }
+  .form-row textarea { resize: vertical; min-height: 60px; }
+  .modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+  .btn { padding: 8px 18px; border-radius: 20px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-primary { background: #1a1a2e; color: white; }
+  .btn-cancel  { background: #f0f2f5; color: #555; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>&#x1F5A5;&#xFE0F; Tumlinson Electric &mdash; IT Tracker</h1>
+  <div class="header-right">
+    <div class="auth-status">
+      <span class="auth-dot" id="auth-dot"></span>
+      <span id="auth-label">Not signed in</span>
+    </div>
+    <button class="auth-btn" id="auth-btn" onclick="handleAuth()">Sign In</button>
+  </div>
+</div>
+
+<div class="status-bar" id="status-bar"></div>
+<div class="summary" id="summary"></div>
+<div id="warn-banner"></div>
+
+<div class="tabs">
+  <button class="tab active" data-tab="it" onclick="switchTab('it')">IT Issues <span class="tab-badge" id="badge-it" style="background:#e74c3c"></span></button>
+  <button class="tab"        data-tab="eq" onclick="switchTab('eq')">Equipment Orders <span class="tab-badge" id="badge-eq" style="background:#8e44ad"></span></button>
+  <button class="tab"        data-tab="ph" onclick="switchTab('ph')">Phishing Alerts <span class="tab-badge" id="badge-ph" style="background:#2980b9"></span></button>
+</div>
+
+<div class="content">
+  <div class="section active" id="sec-it"></div>
+  <div class="section"        id="sec-eq"></div>
+  <div class="section"        id="sec-ph"></div>
+</div>
+
+<button class="fab" id="fab" onclick="openModal()">&#xFF0B; Add Equipment Order</button>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2>&#x1F4E6; New Equipment Order</h2>
+    <div class="form-row"><label>Assigned To</label><input id="f-name" type="text" placeholder="Employee name"></div>
+    <div class="form-row"><label>Equipment Type</label>
+      <select id="f-type">
+        <option value="Laptop">Laptop</option><option value="Screen Extender">Screen Extender</option>
+        <option value="iPad">iPad</option><option value="Monitor">Monitor</option>
+        <option value="Keyboard / Mouse">Keyboard / Mouse</option><option value="Docking Station">Docking Station</option>
+        <option value="Phone">Phone</option><option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Description / Model</label><textarea id="f-desc" placeholder="e.g. Lenovo ThinkPad E14, 16GB RAM"></textarea></div>
+    <div class="form-row"><label>Status</label>
+      <select id="f-status"><option value="Needs Ordering">Needs Ordering</option><option value="Ordered">Ordered</option><option value="Received">Received</option></select>
+    </div>
+    <div class="form-row"><label>Date</label><input id="f-date" type="date"></div>
+    <div class="form-row"><label>Notes (optional)</label><textarea id="f-notes" placeholder="Order #, vendor, ETA, etc."></textarea></div>
+    <div class="modal-btns">
+      <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="addEquipment()">Add Order</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+var CLIENT_ID   = 'f3c8fe2f-923d-4389-8b0d-f1d4f1c72e56';
+var TENANT_ID   = '5da6e7f3-b874-4299-a333-0f85d6f19f5f';
+var REDIRECT    = 'https://tumlinsonelectric.sharepoint.com/sites/ITTracker2/SitePages/IT-Tracker(1).aspx';
+var SCOPES      = ['Files.ReadWrite','User.Read'];
+var GRAPH       = 'https://graph.microsoft.com/v1.0';
+var FOLDER      = '/me/drive/root:/TEITTracker';
+var FILES       = { it:'te_it.json', eq:'te_equipment.json', ph:'te_phishing.json' };
+
+// ── MSAL ──────────────────────────────────────────────────────────────────────
+var msalApp = new msal.PublicClientApplication({
+  auth: { clientId: CLIENT_ID, authority: 'https://login.microsoftonline.com/'+TENANT_ID, redirectUri: REDIRECT },
+  cache: { cacheLocation: 'localStorage', storeAuthStateInCookie: true }
+});
+var token = null;
+
+// ── Status config ─────────────────────────────────────────────────────────────
+var IT_S  = [{l:'Open',p:'pill-open',d:'#e74c3c',c:'open'},{l:'In Progress',p:'pill-prog',d:'#f39c12',c:'inprog'},{l:'Closed',p:'pill-closed',d:'#95a5a6',c:'closed'}];
+var PH_S  = [{l:'Open',p:'pill-open',d:'#e74c3c',c:'open'},{l:'Resolved',p:'pill-closed',d:'#95a5a6',c:'closed'}];
+var EQ_S  = [{l:'Needs Ordering',p:'pill-needs',d:'#e74c3c',c:'needs'},{l:'Ordered',p:'pill-ordered',d:'#2980b9',c:'ordered'},{l:'Received',p:'pill-received',d:'#27ae60',c:'received'}];
+var EQ_IC = {'Laptop':'&#x1F4BB;','Screen Extender':'&#x1F5A5;','iPad':'&#x1F4F1;','Monitor':'&#x1F5B5;','Keyboard / Mouse':'&#x2328;','Docking Station':'&#x1F50C;','Phone':'&#x1F4DE;','Other':'&#x1F4E6;'};
+
+// ── Seed data (latest scan Jun 11 2026) ──────────────────────────────────────
+var SEED_IT = [
+  {id:'IT001',name:'Cody Henry - Accubid Excel export issue',description:'Cody Henry (Senior PM) unable to export Excel files from Accubid. Workaround: log out and back in within the Accubid list in Excel.',date:'2026-06-10',status:'In Progress',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56lAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'IT002',name:'Shaun Blumhoff - Remote Desktop server error',description:'Remote Desktop Server error. Steps: check all boxes; if unable to remove update, roll back last Windows update on laptop.',date:'2026-06-10',status:'In Progress',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56XAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'IT003',name:'Joe Hill - Bluebeam MAX license/seat not showing',description:'Joe Hill on correct Revu 21.10 build but Bluebeam MAX features not appearing. Still cannot log out, password reset sends no email. Waiting before uninstalling.',date:'2026-06-11',status:'In Progress',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57bAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'IT004',name:'Steven Grymes - pVault 2026.0.1.5 update',description:'pVault version 2026.0.1.5 now available. Steven Grymes flagged to support; update will be handled.',date:'2026-06-10',status:'In Progress',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56YAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'IT005',name:'Jeff Crim - Lenovo laptop setup needed',description:'Lenovo received from California. Needs setup and deployment. Jeff Crim asking if laptop can be ready by Jun 24 for new hire Carlos Sosa (Florida) by Jul 1.',date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56vAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'IT006',name:'Miguel Juarez - laptop keyboard not working',description:'Laptop keyboard fully failed. Exchange completed Jun 10. Follow up to confirm new device is working.',date:'2026-06-09',status:'In Progress',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56wAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'IT007',name:'Juan Patino - password request',description:'Juan Patino emailed asking for his password to be texted to him — data deleted on his cell phone. Needs password reset/assistance.',date:'2026-06-11',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57eAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'}
+];
+
+var SEED_EQ = [
+  {id:'EQ001',assignedTo:'Miguel Juarez',eqType:'Laptop',description:'Keyboard fully failed — exchange completed Jun 10.',status:'Ordered',date:'2026-06-09',notes:'Exchange made. Follow up to confirm new device working.',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56wAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'EQ002',assignedTo:'Sara Justice',eqType:'iPad',description:'Tablet upgrade quote via Allterra Central.',status:'Needs Ordering',date:'2026-06-10',notes:'Card payment still failing. Sara confirmed check will be issued on next check run.',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S560AAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'EQ003',assignedTo:'Jeff Crim',eqType:'Laptop',description:'Lenovo from California received. Possibly Ian\'s old repaired laptop.',status:'Received',date:'2026-06-10',notes:'Jeff Crim asking if ready by Jun 24 for Carlos Sosa (Florida) Jul 1 start.',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56vAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'EQ004',assignedTo:'Carlos Sosa',eqType:'Laptop',description:'New hire Carlos Sosa (Florida) needs laptop by July 1.',status:'Needs Ordering',date:'2026-06-10',notes:'Dependent on Lenovo repair. If not ready, new laptop must be ordered.',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56tAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'}
+];
+
+var SEED_PH = [
+  {id:'PH001',name:'Suanna Tumlinson',attackerEmail:'john@baseandboardteams.com',issue:"Phishing: 'Pallet quality a quick ask' — business impersonation/fraud. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56WAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH002',name:'Myrna Dye',attackerEmail:'lonelyextrovert23@gmail.com',issue:"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56fAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH003',name:'Grace Roberts',attackerEmail:'lonelyextrovert23@gmail.com',issue:"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56gAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH004',name:'Mayra Wiley',attackerEmail:'lonelyextrovert23@gmail.com',issue:"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56hAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH005',name:'Ellen Scheumann',attackerEmail:'lonelyextrovert23@gmail.com',issue:"Phishing: 'CHANGE OF DIRECT DEPOSIT' — direct deposit scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56iAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH006',name:'Joe Hill',attackerEmail:'john.boss@baseboardus.com',issue:"Phishing: 'Re: Pallet supply re Tumlinson Electric question' — business impersonation/fraud. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56oAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH007',name:'Glenn Garrett',attackerEmail:'john@baseandboardteams.com',issue:"Phishing: 'Pallets for the dock question' — business impersonation/fraud. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56IAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH008',name:'Kenneth Tumlinson',attackerEmail:'greslobewigsu2n@hotmail.com',issue:"Phishing: 'Turn Your App Idea into Reality' — fraud/scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56AAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH009',name:'Brandi Watson',attackerEmail:'jerry.globalestimating@gmail.com',issue:"Phishing: 'Looking for opportunities' — fraud/scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56qAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH010',name:'Brandi Watson',attackerEmail:'lucas.global.off@gmail.com',issue:"Phishing: 'Why Choose Us: ONE PROJECT STEP' — fraud/scam. Barracuda moved to Junk.",date:'2026-06-10',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S56xAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH011',name:'Kenneth Tumlinson',attackerEmail:'contact@sage-compass-talent.com',issue:"Phishing: 'Stop overpaying for drug screens, physicals and background checks' — fraud/scam language. Barracuda moved to Junk.",date:'2026-06-11',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57ZAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'},
+  {id:'PH012',name:'Kristen Tumlinson',attackerEmail:'noreply@docusign.sonobello.com',issue:"Phishing: 'Reminder: Venus Promotion!' — fake DocuSign, suspicious URL. Barracuda moved to Junk.",date:'2026-06-11',status:'Open',threadUrl:'https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57KAAA%3D&exvsurl=1&viewmodel=ReadMessageItem'}
+];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+var itIssues=[], equipment=[], phishing=[];
+var newItIds=[], newEqIds=[], newPhIds=[];
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+async function handleAuth() {
+  if (token) { msalApp.logoutPopup(); token=null; updateAuthUI(false); return; }
+  showBar('info','Signing in to Microsoft...');
+  try {
+    var r = await msalApp.loginPopup({scopes:SCOPES});
+    await afterLogin(r.account);
+  } catch(e) { showBar('error','Sign-in failed: '+e.message); }
+}
+
+async function afterLogin(account) {
+  try {
+    var t = await msalApp.acquireTokenSilent({scopes:SCOPES,account:account});
+    token = t.accessToken;
+    updateAuthUI(true, account.name||account.username);
+    showBar('info','Loading tracker data from OneDrive...');
+    await ensureFolder();
+    await loadData();
+    showBar('success','Synced from OneDrive &#x2714;');
+    setTimeout(hideBar, 2500);
+  } catch(e) { showBar('error','Auth error: '+e.message); }
+}
+
+function updateAuthUI(on, name) {
+  document.getElementById('auth-dot').className = 'auth-dot'+(on?' on':'');
+  document.getElementById('auth-label').textContent = on?(name||'Signed in'):'Not signed in';
+  var btn = document.getElementById('auth-btn');
+  btn.textContent = on?'Sign Out':'Sign In';
+  btn.className = 'auth-btn'+(on?' out':'');
+}
+
+// ── Graph ─────────────────────────────────────────────────────────────────────
+async function gFetch(url, opts) {
+  opts=opts||{}; opts.headers=opts.headers||{};
+  opts.headers['Authorization']='Bearer '+token;
+  opts.headers['Content-Type']=opts.headers['Content-Type']||'application/json';
+  var r=await fetch(GRAPH+url,opts);
+  if(r.status===204) return null;
+  if(!r.ok) throw new Error('Graph '+r.status+' '+url);
+  return r.json();
+}
+
+async function ensureFolder() {
+  try { await gFetch(FOLDER); } catch(e) {
+    await gFetch('/me/drive/root/children',{method:'POST',body:JSON.stringify({name:'TEITTracker',folder:{},'@microsoft.graph.conflictBehavior':'rename'})});
+  }
+}
+
+async function readFile(name) {
+  try {
+    var m=await gFetch('/me/drive/root:/TEITTracker/'+name);
+    var r=await fetch(m['@microsoft.graph.downloadUrl']);
+    return r.json();
+  } catch(e){ return null; }
+}
+
+async function writeFile(name,data) {
+  await gFetch('/me/drive/root:/TEITTracker/'+name+':/content',{
+    method:'PUT',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+    body:JSON.stringify(data)
+  });
+}
+
+// ── Load & seed ───────────────────────────────────────────────────────────────
+async function loadData() {
+  var itR=await readFile(FILES.it), eqR=await readFile(FILES.eq), phR=await readFile(FILES.ph);
+  itIssues=itR||[]; equipment=eqR||[]; phishing=phR||[];
+  newItIds=[]; newEqIds=[]; newPhIds=[];
+  var changed=false;
+  function seed(arr,s,matchFn,nIds){s.forEach(function(item){var rec=arr.find(function(e){return matchFn(e,item);});if(!rec){arr.push(item);nIds.push(item.id);changed=true;}else if(!rec.threadUrl&&item.threadUrl){rec.threadUrl=item.threadUrl;changed=true;}});}
+  seed(itIssues,SEED_IT,function(e,i){return e.id===i.id||e.name===i.name;},newItIds);
+  seed(equipment,SEED_EQ,function(e,i){return e.id===i.id||(e.assignedTo===i.assignedTo&&e.eqType===i.eqType&&e.date===i.date);},newEqIds);
+  seed(phishing,SEED_PH,function(e,i){return e.id===i.id||(e.name===i.name&&e.attackerEmail===i.attackerEmail&&e.date===i.date);},newPhIds);
+  if(changed) await saveAll();
+  document.getElementById('sync-time').textContent='OneDrive synced '+new Date().toLocaleTimeString();
+  render();
+}
+
+async function saveAll() { await Promise.all([writeFile(FILES.it,itIssues),writeFile(FILES.eq,equipment),writeFile(FILES.ph,phishing)]); }
+async function saveOne(type) { var m={it:[FILES.it,itIssues],eq:[FILES.eq,equipment],ph:[FILES.ph,phishing]};await writeFile(m[type][0],m[type][1]); }
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function showBar(type,msg){var b=document.getElementById('status-bar');b.className='status-bar '+type;b.innerHTML=msg;}
+function hideBar(){document.getElementById('status-bar').className='status-bar';}
+function getCfg(type,label){var l=type==='it'?IT_S:type==='ph'?PH_S:EQ_S;return l.find(function(s){return s.l===label;})||l[0];}
+function getCfgList(type){return type==='it'?IT_S:type==='ph'?PH_S:EQ_S;}
+
+function statusMenuHTML(type,id,current) {
+  var items=getCfgList(type).map(function(s){
+    return '<div class="smenu-item" onclick="changeStatus(\''+type+'\',\''+id+'\',\''+s.l+'\');event.stopPropagation()"><span class="sdot" style="background:'+s.d+'"></span>'+s.l+(s.l===current?' &#x2713;':'')+'</div>';
+  }).join('');
+  return '<div class="smenu-wrap"><button class="status-btn" onclick="toggleMenu(\'sm-'+id+'\');event.stopPropagation()">&#x270E; Status</button><div class="smenu" id="sm-'+id+'">'+items+'</div></div>';
+}
+
+async function changeStatus(type,id,newStatus) {
+  var arr=type==='it'?itIssues:type==='ph'?phishing:equipment;
+  var item=arr.find(function(e){return e.id===id;});
+  if(item){item.status=newStatus;}
+  closeMenus(); render();
+  if(token){showBar('info','Saving...');try{await saveOne(type);showBar('success','Saved &#x2714;');setTimeout(hideBar,1500);}catch(e){showBar('error','Save failed');}}
+}
+
+function toggleMenu(id){closeMenus();var m=document.getElementById(id);if(m)m.classList.toggle('open');}
+function closeMenus(){document.querySelectorAll('.smenu.open').forEach(function(m){m.classList.remove('open');});}
+document.addEventListener('click',closeMenus);
+
+function makeCard(type,item,isNew,cfg,metaHtml,bodyText) {
+  var tag=item.threadUrl?'a':'div';
+  var attrs=item.threadUrl?' href="'+item.threadUrl+'" target="_blank" rel="noopener"':'';
+  var cls='card '+cfg.c+(item.threadUrl?' clickable':'');
+  var hint=item.threadUrl?'<span class="link-hint">&#x1F517; Open in Outlook</span>':'';
+  return '<'+tag+attrs+' class="'+cls+'">'
+    +'<div class="card-hdr"><span class="card-name">'+item.name+(isNew?'<span class="new-badge">NEW</span>':'')+'</span>'
+    +'<div class="card-right"><span class="pill '+cfg.p+'">'+cfg.l+'</span>'+statusMenuHTML(type,item.id,cfg.l)+'</div></div>'
+    +'<div class="card-desc">'+(bodyText||'&mdash;')+'</div>'
+    +'<div class="card-meta">'+metaHtml+'<span class="id-tag">'+item.id+'</span>'+hint+'</div>'
+    +'</'+tag+'>';
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render() {
+  var syncEl=document.getElementById('sync-time');
+  if(!token) syncEl.textContent='Sign in to sync across devices';
+
+  var openIt=itIssues.filter(function(i){return i.status==='Open';}).length;
+  var progIt=itIssues.filter(function(i){return i.status==='In Progress';}).length;
+  var openPh=phishing.filter(function(p){return p.status==='Open';}).length;
+  var pendEq=equipment.filter(function(e){return e.status!=='Received';}).length;
+
+  document.getElementById('summary').innerHTML=[
+    {n:itIssues.length,l:'IT Issues',c:'#1a1a2e'},
+    {n:openIt+progIt,l:'Active Issues',c:'#e74c3c'},
+    {n:equipment.length,l:'Equipment Orders',c:'#8e44ad'},
+    {n:phishing.length,l:'Phishing Alerts',c:'#2980b9'}
+  ].map(function(t){return'<div class="tile"><div class="n" style="color:'+t.c+'">'+t.n+'</div><div class="l">'+t.l+'</div></div>';}).join('');
+
+  document.getElementById('badge-it').textContent=openIt+progIt;
+  document.getElementById('badge-eq').textContent=pendEq;
+  document.getElementById('badge-ph').textContent=openPh;
+
+  document.getElementById('warn-banner').innerHTML=phishing.some(function(p){return p.status==='Open'&&['lonelyextrovert23@gmail.com','john@baseandboardteams.com','john.boss@baseboardus.com'].indexOf(p.attackerEmail)>=0;})
+    ?'<div class="warn"><strong>&#x26A0;&#xFE0F; Active Phishing Campaign</strong>Multiple campaigns targeting TE employees intercepted by Barracuda. See Phishing Alerts tab for details.</div>':'' ;
+
+  document.getElementById('sec-it').innerHTML=itIssues.length?itIssues.slice().reverse().map(function(i){
+    var cfg=getCfg('it',i.status);
+    return makeCard('it',i,newItIds.indexOf(i.id)>-1,cfg,'<span>&#128197; '+i.date+'</span>',i.description);
+  }).join(''):'<div class="empty">No IT issues on record.</div>';
+
+  document.getElementById('sec-eq').innerHTML=equipment.length?equipment.slice().reverse().map(function(e){
+    var cfg=getCfg('eq',e.status);
+    var disp=Object.assign({},e,{name:(EQ_IC[e.eqType]||'&#x1F4E6;')+' '+e.eqType+(e.assignedTo?' &mdash; '+e.assignedTo:'')});
+    var meta='<span><span class="eq-chip">'+e.eqType+'</span></span>'+(e.assignedTo?'<span>&#128100; '+e.assignedTo+'</span>':'')+'<span>&#128197; '+e.date+'</span>';
+    return makeCard('eq',disp,newEqIds.indexOf(e.id)>-1,cfg,meta,[e.description,e.notes].filter(Boolean).join(' &mdash; '));
+  }).join(''):'<div class="empty">No equipment orders yet.<br>Click <strong>+ Add Equipment Order</strong> to get started.</div>';
+
+  document.getElementById('sec-ph').innerHTML=phishing.length?phishing.slice().reverse().map(function(p){
+    var cfg=getCfg('ph',p.status);
+    var meta='<span>&#127907; <span class="attacker">'+p.attackerEmail+'</span></span><span>&#128197; '+p.date+'</span>';
+    return makeCard('ph',p,newPhIds.indexOf(p.id)>-1,cfg,meta,p.issue);
+  }).join(''):'<div class="empty">No phishing alerts on record.</div>';
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('active',b.dataset.tab===tab);});
+  ['it','eq','ph'].forEach(function(t){document.getElementById('sec-'+t).classList.toggle('active',t===tab);});
+  document.getElementById('fab').style.display=tab==='eq'?'block':'none';
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+function openModal(){document.getElementById('f-date').value=new Date().toISOString().split('T')[0];document.getElementById('overlay').classList.add('open');}
+function closeModal(){document.getElementById('overlay').classList.remove('open');['f-name','f-desc','f-notes'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('f-type').selectedIndex=0;document.getElementById('f-status').selectedIndex=0;}
+async function addEquipment(){
+  var item={id:'EQ'+String(Date.now()).slice(-6),assignedTo:document.getElementById('f-name').value.trim(),eqType:document.getElementById('f-type').value,description:document.getElementById('f-desc').value.trim(),status:document.getElementById('f-status').value,date:document.getElementById('f-date').value||new Date().toISOString().split('T')[0],notes:document.getElementById('f-notes').value.trim()};
+  equipment.push(item);closeModal();render();
+  if(token){try{await saveOne('eq');showBar('success','Equipment order saved &#x2714;');setTimeout(hideBar,2000);}catch(e){showBar('error','Save failed');}}
+}
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+// Load seed data immediately for offline view
+(function(){
+  function seed(arr,s,matchFn,nIds){s.forEach(function(item){var rec=arr.find(function(e){return matchFn(e,item);});if(!rec){arr.push(item);nIds.push(item.id);}});}
+  seed(itIssues,SEED_IT,function(e,i){return e.id===i.id||e.name===i.name;},newItIds);
+  seed(equipment,SEED_EQ,function(e,i){return e.id===i.id||(e.assignedTo===i.assignedTo&&e.eqType===i.eqType&&e.date===i.date);},newEqIds);
+  seed(phishing,SEED_PH,function(e,i){return e.id===i.id||(e.name===i.name&&e.attackerEmail===i.attackerEmail&&e.date===i.date);},newPhIds);
+  render();
+})();
+
+// Auto sign-in if session exists
+(async function(){
+  try {
+    await msalApp.handleRedirectPromise();
+    var accounts=msalApp.getAllAccounts();
+    if(accounts.length>0){showBar('info','Restoring session...');await afterLogin(accounts[0]);}
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
