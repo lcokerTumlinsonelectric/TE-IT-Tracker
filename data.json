@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T13:05:00Z",
+  "lastUpdated": "2026-06-12T13:20:00Z",
   "it": [
     {
       "id": "IT001",
@@ -298,6 +298,18 @@
       "date": "2026-06-12",
       "status": "Open",
       "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    }
+  ],
+  "software": [
+    {
+      "id": "SW001",
+      "assignedTo": "Jeff Crim",
+      "software": "Autodesk AEC Collection (1 new seat)",
+      "description": "Quote received from Kim Lemley at Graitec for 1 new AEC Collection seat. Replaces the Autodesk direct license expiring 6/14/2026 \u2014 new term starts 6/14/2026.",
+      "status": "Quoted",
+      "date": "2026-06-11",
+      "notes": "DEADLINE: current license expires Sun 6/14/2026. Jeff also planning to add 1 BIM Collaborate Pro seat (dept has ~19 of each on auto-renew).",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S578AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
     }
   ]
 }
