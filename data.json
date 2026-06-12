@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-12T13:20:00Z",
+  "lastUpdated": "2026-06-12T20:05:00Z",
   "it": [
     {
       "id": "IT001",
@@ -20,10 +20,10 @@
     {
       "id": "IT003",
       "name": "Joe Hill - Bluebeam MAX license/seat not showing",
-      "description": "Joe Hill on correct Revu 21.10 build but MAX features not showing. Cannot log out, password reset sends no email. Graitec (Mark Stelling) escalated to Bluebeam registration with TE org ID 30e78190-1f5e-43e3-9d1d-50ea5498ba00.",
-      "date": "2026-06-11",
+      "description": "Joe Hill on correct Revu 21.10 build but MAX features not showing. Portal still freezing as of Jun 11 night \u2014 Joe not appearing in system. Graitec escalated to Bluebeam registration; Mark Stelling sent payment portal link (QUO-547682) Jun 12 to complete the MAX user add.",
+      "date": "2026-06-12",
       "status": "In Progress",
-      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57kAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadmAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
     },
     {
       "id": "IT004",
@@ -64,6 +64,14 @@
       "date": "2026-06-11",
       "status": "In Progress",
       "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57sAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "IT009",
+      "name": "C. Rivera - Microsoft Authenticator reset",
+      "description": "Authenticator issue for crivera resolved by Jesse M \u2014 reset Authenticator and re-added on his phone.",
+      "date": "2026-06-12",
+      "status": "Closed",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SaddAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
     }
   ],
   "equipment": [
@@ -298,6 +306,42 @@
       "date": "2026-06-12",
       "status": "Open",
       "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH021",
+      "name": "Grace Roberts",
+      "attackerEmail": "noreply@vynedental.com",
+      "issue": "Phishing: 'Signature Requested: Document from Vyne Dental' (Signature Smile Family Dentistry impersonation) \u2014 suspicious URL changed to malicious site AFTER delivery. Two copies sent (5:37 & 5:40 PM Jun 11). Barracuda moved both to Junk.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadgAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH022",
+      "name": "Brandi Watson",
+      "attackerEmail": "mariawaves123@gmail.com",
+      "issue": "Phishing: 'Request' from 'Davin Penn' \u2014 unusual request to recipient. Barracuda moved to Junk.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadiAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH023",
+      "name": "Suanna Tumlinson",
+      "attackerEmail": "ronald.speedytakeoffs@gmail.com",
+      "issue": "Phishing: 'Re: Cost Estimation Services by Speedy takeoffs' from 'Ronald Lee' \u2014 fraud/scam language. Barracuda moved to Junk.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SaduAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH024",
+      "name": "Cody Henry (user-reported)",
+      "attackerEmail": "(see thread snapshot \u2014 Caruth impersonation)",
+      "issue": "User-reported spam: Cody Henry confirmed a SPAM email impersonating Caruth and warned the team (Logan, support, T. Lyon, C. Heffernan, C. Durocher, J. Armendariz, J. Peebles). Attacker address in attached snapshot.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadwAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
     }
   ],
   "software": [
@@ -310,6 +354,26 @@
       "date": "2026-06-11",
       "notes": "DEADLINE: current license expires Sun 6/14/2026. Jeff also planning to add 1 BIM Collaborate Pro seat (dept has ~19 of each on auto-renew).",
       "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S578AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "SW002",
+      "assignedTo": "Jeff Crim",
+      "software": "Forma Design Collaboration (1 seat)",
+      "description": "Quote from Kim Lemley at Graitec to add 1 Forma Design Collaboration seat \u2014 term starts 6/12/2026, ends 1/30/2028. Order link sent.",
+      "status": "Quoted",
+      "date": "2026-06-12",
+      "notes": "Order via Graitec payment portal QUO-547701. Companion to SW001 AEC Collection seat.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadsAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "SW003",
+      "assignedTo": "Joe Hill",
+      "software": "Bluebeam MAX (1 seat add)",
+      "description": "Mark Stelling (Graitec) sent payment portal link to add Joe Hill to Bluebeam MAX \u2014 resolves the seat issue in IT003.",
+      "status": "Quoted",
+      "date": "2026-06-12",
+      "notes": "Order via Graitec payment portal QUO-547682.",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadmAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
     }
   ]
 }
