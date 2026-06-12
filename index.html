@@ -88,6 +88,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="tabs">
   <button class="tab active" data-tab="it" onclick="switchTab('it')">IT Issues <span class="tab-badge" id="badge-it" style="background:#e74c3c"></span></button>
   <button class="tab"        data-tab="eq" onclick="switchTab('eq')">Equipment Orders <span class="tab-badge" id="badge-eq" style="background:#8e44ad"></span></button>
+  <button class="tab"        data-tab="sw" onclick="switchTab('sw')">Software <span class="tab-badge" id="badge-sw" style="background:#16a085"></span></button>
   <button class="tab"        data-tab="ph" onclick="switchTab('ph')">Phishing Alerts <span class="tab-badge" id="badge-ph" style="background:#2980b9"></span></button>
 </div>
 
@@ -96,6 +97,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="content">
   <div class="section active" id="sec-it"></div>
   <div class="section"        id="sec-eq"></div>
+  <div class="section"        id="sec-sw"></div>
   <div class="section"        id="sec-ph"></div>
 </div>
 
@@ -116,9 +118,10 @@ function checkPw(){
 var IT_S = [{l:'Open',p:'pill-open',d:'#e74c3c',c:'open'},{l:'In Progress',p:'pill-prog',d:'#f39c12',c:'inprog'},{l:'Closed',p:'pill-closed',d:'#95a5a6',c:'closed'}];
 var PH_S = [{l:'Open',p:'pill-open',d:'#e74c3c',c:'open'},{l:'Resolved',p:'pill-closed',d:'#95a5a6',c:'closed'}];
 var EQ_S = [{l:'Needs Ordering',p:'pill-needs',d:'#e74c3c',c:'needs'},{l:'Ordered',p:'pill-ordered',d:'#2980b9',c:'ordered'},{l:'Received',p:'pill-received',d:'#27ae60',c:'received'}];
+var SW_S = [{l:'Quoted',p:'pill-needs',d:'#e74c3c',c:'needs'},{l:'Ordered',p:'pill-ordered',d:'#2980b9',c:'ordered'},{l:'Active',p:'pill-received',d:'#27ae60',c:'received'}];
 var EQ_IC = {Laptop:'\uD83D\uDCBB','Screen Extender':'\uD83D\uDDA5\uFE0F',iPad:'\uD83D\uDCF1',Monitor:'\uD83D\uDDB5','Keyboard / Mouse':'\u2328\uFE0F','Docking Station':'\uD83D\uDD0C',Phone:'\uD83D\uDCDE',Other:'\uD83D\uDCE6'};
 
-var itIssues=[], equipment=[], phishing=[], lastUpdated='';
+var itIssues=[], equipment=[], phishing=[], software=[], lastUpdated='';
 var overrides = JSON.parse(localStorage.getItem('te_status_overrides')||'{}');
 var seenIds   = JSON.parse(localStorage.getItem('te_seen_ids')||'[]');
 
@@ -130,9 +133,10 @@ async function loadData(){
     itIssues  = d.it || [];
     equipment = d.equipment || [];
     phishing  = d.phishing || [];
+    software  = d.software || [];
     lastUpdated = d.lastUpdated || '';
     // Apply local status overrides
-    [itIssues, equipment, phishing].forEach(function(arr){
+    [itIssues, equipment, phishing, software].forEach(function(arr){
       arr.forEach(function(item){ if(overrides[item.id]) item.status = overrides[item.id]; });
     });
     document.getElementById('sync-time').textContent = 'Data updated: ' + (lastUpdated ? new Date(lastUpdated).toLocaleString() : 'unknown');
@@ -149,8 +153,8 @@ async function loadData(){
 function isNew(id){ return seenIds.length > 0 && seenIds.indexOf(id) < 0; }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-function getCfg(type,label){var l=type==='it'?IT_S:type==='ph'?PH_S:EQ_S;return l.find(function(s){return s.l===label;})||l[0];}
-function getCfgList(type){return type==='it'?IT_S:type==='ph'?PH_S:EQ_S;}
+function getCfg(type,label){var l=type==='it'?IT_S:type==='ph'?PH_S:type==='sw'?SW_S:EQ_S;return l.find(function(s){return s.l===label;})||l[0];}
+function getCfgList(type){return type==='it'?IT_S:type==='ph'?PH_S:type==='sw'?SW_S:EQ_S;}
 
 function statusMenuHTML(type,id,current){
   var items=getCfgList(type).map(function(s){
@@ -160,7 +164,7 @@ function statusMenuHTML(type,id,current){
 }
 
 function changeStatus(type,id,newStatus){
-  var arr=type==='it'?itIssues:type==='ph'?phishing:equipment;
+  var arr=type==='it'?itIssues:type==='ph'?phishing:type==='sw'?software:equipment;
   var item=arr.find(function(e){return e.id===id;});
   if(item){ item.status=newStatus; overrides[id]=newStatus; localStorage.setItem('te_status_overrides', JSON.stringify(overrides)); }
   closeMenus(); render();
@@ -193,11 +197,13 @@ function render(){
     {n:itIssues.length,l:'IT Issues',c:'#1a1a2e'},
     {n:openIt+progIt,l:'Active Issues',c:'#e74c3c'},
     {n:equipment.length,l:'Equipment Orders',c:'#8e44ad'},
+    {n:software.length,l:'Software',c:'#16a085'},
     {n:phishing.length,l:'Phishing Alerts',c:'#2980b9'}
   ].map(function(t){return'<div class="tile"><div class="n" style="color:'+t.c+'">'+t.n+'</div><div class="l">'+t.l+'</div></div>';}).join('');
 
   document.getElementById('badge-it').textContent=openIt+progIt;
   document.getElementById('badge-eq').textContent=pendEq;
+  document.getElementById('badge-sw').textContent=software.filter(function(s){return s.status!=='Active';}).length;
   document.getElementById('badge-ph').textContent=openPh;
 
   document.getElementById('warn-banner').innerHTML = openPh > 0
@@ -215,6 +221,13 @@ function render(){
     return makeCard('eq',disp,cfg,meta,[e.description,e.notes].filter(Boolean).join(' \u2014 '));
   }).join(''):'<div class="empty">No equipment orders.</div>';
 
+  document.getElementById('sec-sw').innerHTML=software.length?software.slice().reverse().map(function(s){
+    var cfg=getCfg('sw',s.status);
+    var disp=Object.assign({},s,{name:'\uD83D\uDCC4 '+s.software+(s.assignedTo?' \u2014 '+s.assignedTo:'')});
+    var meta=(s.assignedTo?'<span>\uD83D\uDC64 '+s.assignedTo+'</span>':'')+'<span>\uD83D\uDCC5 '+s.date+'</span>';
+    return makeCard('sw',disp,cfg,meta,[s.description,s.notes].filter(Boolean).join(' \u2014 '));
+  }).join(''):'<div class="empty">No software orders.</div>';
+
   document.getElementById('sec-ph').innerHTML=phishing.length?phishing.slice().reverse().map(function(p){
     var cfg=getCfg('ph',p.status);
     var meta='<span>\uD83C\uDFA3 <span class="attacker">'+p.attackerEmail+'</span></span><span>\uD83D\uDCC5 '+p.date+'</span>';
@@ -224,7 +237,7 @@ function render(){
 
 function switchTab(tab){
   document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('active',b.dataset.tab===tab);});
-  ['it','eq','ph'].forEach(function(t){document.getElementById('sec-'+t).classList.toggle('active',t===tab);});
+  ['it','eq','sw','ph'].forEach(function(t){document.getElementById('sec-'+t).classList.toggle('active',t===tab);});
 }
 
 loadData();
