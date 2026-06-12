@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-11T19:35:00Z",
+  "lastUpdated": "2026-06-12T13:05:00Z",
   "it": [
     {
       "id": "IT001",
@@ -253,6 +253,51 @@
       "date": "2026-06-11",
       "status": "Open",
       "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57nAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH016",
+      "name": "Steven Grymes",
+      "attackerEmail": "sales18@syda-lift.com",
+      "issue": "Phishing: 'Unlocking New Opportunities: Your Tailored Elevator Proposal Awaits' \u2014 fraud/scam language. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S579AAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH017",
+      "name": "Kenneth Tumlinson",
+      "attackerEmail": "sales06@syda-lift.com",
+      "issue": "Phishing: 'High-Quality Elevators for Your Next Project \u2013 SYDA Elevator' \u2014 fraud/scam language. Same syda-lift.com source as Steven Grymes hit 2 min earlier. Barracuda moved to Junk.",
+      "date": "2026-06-11",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN0S57%2BAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH018",
+      "name": "Brandi Watson",
+      "attackerEmail": "hi@mail.aitangle.com",
+      "issue": "Phishing: 'AI Is Now Building Itself \u2014 And Going Public' \u2014 fraud/scam language. Reply-to mrhinkle@peripety.com. Barracuda moved to Junk.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadPAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH019",
+      "name": "Brandi Watson",
+      "attackerEmail": "axeltigre0313@gmail.com",
+      "issue": "Phishing: 'Job application' \u2014 fraud/scam language. Barracuda moved to Junk.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadQAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
+    },
+    {
+      "id": "PH020",
+      "name": "Mark Swartz",
+      "attackerEmail": "john.b@base-boardgroup.com",
+      "issue": "Phishing: 'Re: Export pallets quick note' \u2014 NEW domain variant of the ongoing 'John Boss' pallet impersonation campaign (baseandboardteams.com / baseboardus.com / base-boardgroup.com). Barracuda moved to Junk.",
+      "date": "2026-06-12",
+      "status": "Open",
+      "threadUrl": "https://outlook.office365.com/owa/?ItemID=AAMkAGU0YzZhZWUwLTY2MmEtNDcyNS05MGE2LTQzYWU4Y2JlNjQzMQBGAAAAAADkNdmpS%2Fa3Q4CpkeQwKln3BwAfWT5KgEopTKO62xgcHv1rAAAAAAEMAAAfWT5KgEopTKO62xgcHv1rAAN2SadTAAA%3D&exvsurl=1&viewmodel=ReadMessageItem"
     }
   ]
 }
